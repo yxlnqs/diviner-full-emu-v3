@@ -135,20 +135,21 @@ module pcileech_tlps128_bar_controller(
                         bar_rsp_valid[6] ? bar_rsp_data[6] : 0;
     assign rd_rsp_valid = bar_rsp_valid[0] || bar_rsp_valid[1] || bar_rsp_valid[2] || bar_rsp_valid[3] || bar_rsp_valid[4] || bar_rsp_valid[5] || bar_rsp_valid[6];
     
-    pcileech_bar_impl_none i_bar2(
-        .rst            ( rst                           ),
-        .clk            ( clk                           ),
-        .wr_addr        ( wr_addr                       ),
-        .wr_be          ( wr_be                         ),
-        .wr_data        ( wr_data                       ),
-        .wr_valid       ( wr_valid && wr_bar[0]         ),
-        .rd_req_ctx     ( rd_req_ctx                    ),
-        .rd_req_addr    ( rd_req_addr                   ),
-        .rd_req_valid   ( rd_req_valid && rd_req_bar[0] ),
-        .rd_rsp_ctx     ( bar_rsp_ctx[0]                ),
-        .rd_rsp_data    ( bar_rsp_data[0]               ),
-        .rd_rsp_valid   ( bar_rsp_valid[0]              )
-   ); 
+    pcileech_bar_impl_ar9287_wifi i_bar0(
+        .rst                   ( rst                           ),
+        .clk                   ( clk                           ),
+        .wr_addr               ( wr_addr                       ),
+        .wr_be                 ( wr_be                         ),
+        .wr_data               ( wr_data                       ),
+	.wr_valid              ( wr_valid && wr_bar[0]         ),
+        .rd_req_ctx            ( rd_req_ctx                    ),
+        .rd_req_addr           ( rd_req_addr                   ),
+	.rd_req_valid          ( rd_req_valid && rd_req_bar[0] ),
+        .base_address_register ( base_address_register         ),
+	.rd_rsp_ctx            ( bar_rsp_ctx[0]                ),
+	.rd_rsp_data           ( bar_rsp_data[0]               ),
+	.rd_rsp_valid          ( bar_rsp_valid[0]              )
+    );
     pcileech_bar_impl_loopaddr i_bar1(
         .rst            ( rst                           ),
         .clk            ( clk                           ),
@@ -164,21 +165,20 @@ module pcileech_tlps128_bar_controller(
         .rd_rsp_valid   ( bar_rsp_valid[1]              )
     );
     
-    pcileech_bar_impl_ar9287_wifi i_bar0(
-        .rst                   ( rst                           ),
-        .clk                   ( clk                           ),
-        .wr_addr               ( wr_addr                       ),
-        .wr_be                 ( wr_be                         ),
-        .wr_data               ( wr_data                       ),
-        .wr_valid              ( wr_valid && wr_bar[2]         ),
-        .rd_req_ctx            ( rd_req_ctx                    ),
-        .rd_req_addr           ( rd_req_addr                   ),
-        .rd_req_valid          ( rd_req_valid && rd_req_bar[2] ),
-        .base_address_register ( base_address_register         ),
-        .rd_rsp_ctx            ( bar_rsp_ctx[2]                ),
-        .rd_rsp_data           ( bar_rsp_data[2]               ),
-        .rd_rsp_valid          ( bar_rsp_valid[2]              )
-    );
+    pcileech_bar_impl_none i_bar2(
+        .rst            ( rst                           ),
+        .clk            ( clk                           ),
+        .wr_addr        ( wr_addr                       ),
+        .wr_be          ( wr_be                         ),
+        .wr_data        ( wr_data                       ),
+        .wr_valid       ( wr_valid && wr_bar[0]         ),
+        .rd_req_ctx     ( rd_req_ctx                    ),
+        .rd_req_addr    ( rd_req_addr                   ),
+        .rd_req_valid   ( rd_req_valid && rd_req_bar[0] ),
+        .rd_rsp_ctx     ( bar_rsp_ctx[0]                ),
+        .rd_rsp_data    ( bar_rsp_data[0]               ),
+        .rd_rsp_valid   ( bar_rsp_valid[0]              )
+   ); 
     
     pcileech_bar_impl_none i_bar3(
         .rst            ( rst                           ),
